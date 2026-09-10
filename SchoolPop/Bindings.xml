@@ -1,0 +1,5 @@
+<Bindings>
+    <Binding name="SCHOOLPOP_TOGGLE_LOG" header="SCHOOLPOP">
+        SchoolPop_ToggleLog()
+    </Binding>
+</Bindings>

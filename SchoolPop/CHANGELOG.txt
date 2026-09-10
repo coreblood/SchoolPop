@@ -1,0 +1,239 @@
+SchoolPop - Changelog
+=====================
+
+1.49
+- The Breakdown window no longer closes on its own when you lose control of your
+  character (fear, cyclone, cutscenes, etc.). It is no longer tied to the Escape /
+  cancel handling. Close it with its X, the minimap right-click, the Breakdown
+  button, or /sp breakdown.
+
+1.48
+- Breakdown: pulled the Total / % / Hits / DPS/HPS columns in closer to the ability
+  name so the headers stay inside the window with margin to spare.
+
+1.47
+- Breakdown: fixed the column header row overlapping the DPS/HPS tab buttons; the
+  header and list now sit clearly below the tabs.
+
+1.46
+- The DPS/HPS meter and breakdown are now cumulative: they keep accumulating
+  across fights and only clear when you hit Reset (or the log's Clear button),
+  instead of resetting when a new fight starts.
+- Minimap right-click now opens/closes the Breakdown window (it no longer toggles
+  floating text; use the checkbox or /sp float for that). Left-click still opens options.
+
+1.45
+- Added a spell tracer for diagnosing missing procs: "/sp trackheal <id>" prints
+  every combat-log event for that spell ID (subevent, source, flags, payload) to
+  chat, so we can see exactly how a proc like Julie's Blessing fires. "/sp track off"
+  stops it.
+
+1.44
+- Fixed the close (X) buttons on the Export and other pop-up windows: their
+  clickable area was offset to the right of the visible X. It now matches.
+
+1.43
+- Log window: removed the top-bar Clear and Lock buttons. The bottom-right button
+  (formerly "0") is now "Clear" and does both jobs - it clears the log and resets
+  the DPS/HPS meter.
+
+1.42
+- Breakdown: removed the separate ID column; the spell ID now shows in
+  parentheses after every ability name (e.g. "Flash of Light (48785)").
+
+1.41
+- Breakdown now lists each proc/spell separately by its spell ID, so same-named
+  procs (the several Drain Lifes, etc.) get their own rows; the ID is appended to
+  the name when two rows share a name.
+- Fixed the DPS/HPS header spilling outside the window; headers now line up with
+  their columns at any width.
+- Log Filter box accepts a spell ID OR a name (searches proc/talent/skill names).
+- Options panel: the three action buttons are centered, with Open log / Breakdown
+  centered on a row beneath them.
+- Cross-open: the log window has a Breakdown button and the breakdown window has a
+  Log button.
+- The meter reset (0) button and the breakdown Reset button now also clear the log.
+
+1.40
+- Breakdown now counts only damage/healing sourced from you or your own pet.
+  Ground effects, boss debuffs and other non-you sources (e.g. Corrupted Ground)
+  no longer appear.
+- Added an ID column (the spell ID of each source).
+- Wider default window and a clearer "DPS/HPS" header so the per-second column
+  is visible without scrolling. (Total is the fight total; DPS/HPS is per second.)
+
+1.39
+- Breakdown window uses real fixed columns now, so Total / % / Hits / per-sec
+  line up cleanly instead of drifting with the font.
+
+1.38
+- New Breakdown window (button in options, or /sp breakdown): two tabs, DPS and
+  HPS, listing each ability/proc/spell used this fight with its total, share %,
+  hit count and per-second rate, sorted highest first, colored by school. Melee
+  swings are grouped as one "Melee" row.
+- InvID is disabled in SchoolPop (it now lives in the standalone PicoID addon):
+  the InvID button and /sp invid command are removed, and SchoolPop no longer
+  sends USPELLDMG potency requests. The combat log's item-source annotations are
+  unchanged.
+
+1.37
+- Floating text and the DPS/HPS meter now abbreviate past millions: billions as
+  B, trillions as T, then Qa/Qi (e.g. 2.5B instead of 2500M).
+
+1.36
+- Potency figures are re-requested until answered, so they no longer need the
+  Extraction window opened first. Same drop-source overrides as PicoID 1.12.
+
+1.35
+- InvID "Dropped by" now covers every proc: set bonuses show "Vendor", quest
+  items show "Quest", plus boss / crafted / sold-by sources.
+
+1.34
+- Opening InvID requests the imprint data from the server immediately (ICINV)
+  instead of waiting, so the list populates much faster.
+
+1.33
+- InvID "Dropped by" also shows crafted profession or vendor NPC. Item names
+  pre-cached so the list fills in faster on first open.
+
+1.32
+- Removed the hidden spell-description scanning tooltip (could disturb imprint/
+  vestige lines on item tooltips). Hover uses the server number only. Added /sp invdebug.
+
+1.31
+- Fixed a crash from v1.30: the damage prefetch was called before it was defined,
+  breaking the InvID window when imprint data arrived. Now safe.
+
+1.30
+- Proc potency figures are pre-fetched from the server when the InvID window
+  opens, so the number is ready on first hover instead of after a delay.
+
+1.29
+- Proc hover potency now shows the server's real "Approx. N with your stats"
+  figure (via USPELLDMG), matching the Extraction window, instead of a
+  client-side estimate. Widened the drop database.
+
+1.28
+- InvID: new "Dropped by" column (up to 3 creatures that drop the proc's origin
+  item), and a hover tooltip on each row showing the proc description with this
+  imprint's scaled numbers plus its potency from your current spell/attack power.
+
+1.27
+- Log and InvID windows have a maximum resize size (capped to the screen), so
+  the corner grip can no longer enlarge them without limit.
+
+1.26
+- InvID window: "Reset" button restores the default size and position.
+
+1.25
+- InvID window rebuilt with real columns (Item / Imprinted proc / Proc ID / Item
+  of origin) that resize with the window; warning shown in its own strip.
+
+1.24
+- Small "0" button at the right end of the meter line resets the DPS/HPS counters.
+
+1.23
+- Log could look empty: closing the Filter-by-ID box with Escape left the filter
+  active with the box hidden. Hiding the box in any way now clears the filter.
+- Clear scrolls the log back to the bottom.
+- Meter line shows "[filter: <id>]" while an ID filter is active and
+  "[scrolled up]" when new lines are arriving below the visible area.
+
+1.22
+- InvID: procs carried by two or more equipped items are shown in red with a warning
+  (a proc never fires more than once regardless of how many items carry it).
+
+1.21
+- Log filter dropdown renamed "Both" -> "All".
+
+1.20
+- DPS / HPS meter line at the bottom of the log window (per fight, last fight stays
+  visible until the next one starts).
+
+1.19
+- Removed the duplicate log-filter dropdown from the options panel; it was overlapping
+  the Open log / InvID buttons.
+
+1.18
+- Proc database rebuilt without the damage/heal filter (9,495 entries): the server
+  imprints an item's trigger/buff spell, which InvID needs to resolve. Fixed stray
+  backslashes in names containing apostrophes.
+
+1.17
+- "?" button in the log window: Filter by ID. Shows only one proc's lines (existing
+  and live) while an ID is entered; clearing or an invalid ID restores the full log.
+- Timestamps toggle now applies to lines already in the window.
+
+1.16
+- Options panel: "Open log" and "InvID" buttons.
+- InvID window: every equipped item with its imprinted procs
+  (Item - Proc - Proc ID - Item of origin), Refresh, and Print (copy/paste export).
+- Manual rewritten and issued as PDF.
+
+1.15
+- Item/source names and proc ID shown in white inside coloured log lines.
+
+1.14
+- Exact imprint resolution: SchoolPop listens (read-only) to the Uncapped addon's
+  server stream (CHAT_MSG_ADDON "UNC": ICITEM / ICIPROC / ICINVEND) and knows the exact
+  spell ID on each item. Log lines show "on <item>"; /sp find works by ID or name.
+- Removed tooltip-text guessing (client tooltips never contain imprint lines).
+
+1.13
+- /sp link diagnostic: dumps item links and tooltip lines into the log.
+
+1.12
+- Imprinted procs matched by name in item tooltips; /sp find. (Superseded in 1.14.)
+
+1.11
+- Proc spell ID shown in parentheses after the source name.
+
+1.10
+- Smaller (20px) scroll arrows; minimum log height raised so the resize grip is
+  always clickable; grip drawn above the arrows.
+
+1.9
+- Log window can be dragged from anywhere on its background.
+
+1.8
+- Log title bar: title removed, filter dropdown far left, narrower minimum width.
+- Heal lines show "(N overheal)".
+- Lock button (blocks move/resize); Timestamps toggle in the Opt flyout.
+- Keybinding "Toggle log window" (Bindings.xml).
+
+1.7
+- Title bar layout fixed for resizing; larger scroll arrows; close (X) on the Opt flyout.
+- No output to Blizzard chat frames at all; all messages go to the log window.
+- SchoolPop_ProcDB.lua: proc spell -> item / set bonus / ability database built from
+  3.3.5a item_template + Spell/ItemSet/SkillLineAbility DBCs (Vanilla, TBC, WotLK).
+  ItemID resolves through it, preferring equipped items.
+
+1.6
+- Fixed load-time crash introduced in 1.4 (UIDropDownMenu_Initialize runs its init
+  function immediately on 3.3.5a and touched settings before ADDON_LOADED).
+
+1.5
+- Opt flyout on the log window: font size and opacity sliders.
+
+1.4
+- Log filter dropdown: Damage + Healing / Damage only / Healing only.
+
+1.3
+- "ItemID" option: proc detection via spellbook scan, equipped-item match,
+  /sp item manual assignment.
+
+1.2
+- Log window scroll buttons; Export window (copyable text + SchoolPopExport saved var).
+
+1.1
+- Chat-frame output removed; standalone movable/resizable log window added
+  ("X hits Y with Z for N" / "X heals Y with Z for N" / "X is healed by Z for N").
+- Eight bundled OFL fonts; "Over nameplates" checkbox; compact options panel.
+- Floating text follows its nameplate and hides when the unit leaves the screen.
+- Owned non-pet sources (guardians, objects) no longer labelled "(pet)".
+- Icon size slider and Icon: Left / Right.
+
+1.0
+- Initial release: school-coloured floating damage/heal text, spell icons, short
+  numbers, merge window, collision avoidance, scatter, arc animation, nameplate
+  anchoring, options panel, minimap button, colour pickers.

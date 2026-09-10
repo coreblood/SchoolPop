@@ -1,0 +1,10 @@
+## Interface: 30300
+## Title: SchoolPop
+## Notes: Floating combat text color-coded by spell school, with spell icons, nameplate anchoring and a standalone combat log.
+## Author: Michael
+## Version: 1.49
+## SavedVariables: SchoolPopDB, SchoolPopExport
+
+SchoolPop_ProcDB.lua
+SchoolPop_DropDB.lua
+SchoolPop.lua
