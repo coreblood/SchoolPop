@@ -1,6 +1,15 @@
 SchoolPop - Changelog
 =====================
 
+1.50
+- Breakdown: the Total / % / Hits / DPS/HPS columns (and their headers) now anchor
+  to the window's right edge, so the DPS/HPS values are never cut off, at any
+  window size.
+- Breakdown: long ability names no longer wrap onto a second line and overlap the
+  row below; they stay on one line and truncate with "..." (widen the window to
+  see the full name). The name column also gains the extra space when the window
+  is widened.
+
 1.49
 - The Breakdown window no longer closes on its own when you lose control of your
   character (fear, cyclone, cutscenes, etc.). It is no longer tied to the Escape /

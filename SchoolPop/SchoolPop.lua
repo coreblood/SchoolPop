@@ -1833,9 +1833,12 @@ end)
 local BD_FONT = "Fonts\\ARIALN.TTF"
 local BD_FONT_SIZE = 13
 local BD_ROW_H = 16
--- right-edge x of each numeric column, and the name column's right limit
--- right-edge x of each numeric column (from the row's left edge); name is left-aligned
-local BD_COL = { name = 4, nameW = 170, total = 258, pct = 300, hits = 348, ps = 420 }
+-- Name is left-aligned; the four numeric columns are right-aligned at fixed
+-- offsets from the row's RIGHT edge, so they fit at any window width.
+local BD_COL = { name = 4 }
+-- offset of each numeric column's right edge from the row's right edge;
+-- nameGap reserves room for the Total values left of the name column's end
+local BD_R = { total = 204, pct = 162, hits = 114, ps = 42, nameGap = 62 }
 
 -- Header cells anchor to the scroll area (same left origin as rows), and each
 -- numeric header's RIGHT edge sits at its column's right-edge x, so headers line
@@ -1848,18 +1851,19 @@ local function BDHeaderL(text, x, w)
     fs:SetWidth(w); fs:SetJustifyH("LEFT"); fs:SetText(text)
     return fs
 end
-local function BDHeaderR(text, xRight)
+local function BDHeaderR(text, rOff)
     local fs = bdFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    fs:SetPoint("RIGHT", bdFrame, "LEFT", BD_LEFT + xRight, 0)
+    -- 30 = scroll area's right inset; rOff = column offset from the content's right edge
+    fs:SetPoint("RIGHT", bdFrame, "RIGHT", -(30 + rOff), 0)
     fs:SetPoint("TOP", bdFrame, "TOP", 0, -60)
     fs:SetJustifyH("RIGHT"); fs:SetText(text)
     return fs
 end
-BDHeaderL("Ability", BD_COL.name, BD_COL.nameW)
-BDHeaderR("Total",   BD_COL.total)
-BDHeaderR("%",       BD_COL.pct)
-BDHeaderR("Hits",    BD_COL.hits)
-BDHeaderR("DPS/HPS", BD_COL.ps)
+BDHeaderL("Ability", BD_COL.name, 170)
+BDHeaderR("Total",   BD_R.total)
+BDHeaderR("%",       BD_R.pct)
+BDHeaderR("Hits",    BD_R.hits)
+BDHeaderR("DPS/HPS", BD_R.ps)
 
 local bdHeaderLine = bdFrame:CreateTexture(nil, "ARTWORK")
 bdHeaderLine:SetTexture(1, 0.82, 0)
@@ -1888,11 +1892,15 @@ local function BDAcquireRow(i)
         row.hits  = row:CreateFontString(nil, "OVERLAY"); row.hits:SetFont(BD_FONT, BD_FONT_SIZE, "")
         row.ps    = row:CreateFontString(nil, "OVERLAY"); row.ps:SetFont(BD_FONT, BD_FONT_SIZE, "")
         row.name:SetPoint("LEFT", row, "LEFT", BD_COL.name, 0)
-        row.name:SetWidth(BD_COL.nameW); row.name:SetJustifyH("LEFT")
-        row.total:SetPoint("RIGHT", row, "LEFT", BD_COL.total, 0); row.total:SetJustifyH("RIGHT")
-        row.pct:SetPoint("RIGHT", row, "LEFT", BD_COL.pct, 0);     row.pct:SetJustifyH("RIGHT")
-        row.hits:SetPoint("RIGHT", row, "LEFT", BD_COL.hits, 0);   row.hits:SetJustifyH("RIGHT")
-        row.ps:SetPoint("RIGHT", row, "LEFT", BD_COL.ps, 0);       row.ps:SetJustifyH("RIGHT")
+        -- single line: fixed height truncates with "..." instead of wrapping
+        -- onto the next row; right edge stops short of the Total column
+        row.name:SetHeight(BD_ROW_H)
+        row.name:SetPoint("RIGHT", row, "RIGHT", -(BD_R.total + BD_R.nameGap), 0)
+        row.name:SetJustifyH("LEFT")
+        row.total:SetPoint("RIGHT", row, "RIGHT", -BD_R.total, 0); row.total:SetJustifyH("RIGHT")
+        row.pct:SetPoint("RIGHT", row, "RIGHT", -BD_R.pct, 0);     row.pct:SetJustifyH("RIGHT")
+        row.hits:SetPoint("RIGHT", row, "RIGHT", -BD_R.hits, 0);   row.hits:SetJustifyH("RIGHT")
+        row.ps:SetPoint("RIGHT", row, "RIGHT", -BD_R.ps, 0);       row.ps:SetJustifyH("RIGHT")
         bdRowPool[i] = row
     end
     return row

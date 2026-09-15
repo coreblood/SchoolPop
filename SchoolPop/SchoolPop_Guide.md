@@ -176,7 +176,7 @@ Any message the addon has for you appears in the log window, never in your norma
 
 **The breakdown shows something I didn't cast.** It shouldn't — the breakdown only counts your own and your pet's damage. If you still see a stray source, tell me its name and ID.
 
-**The DPS/HPS column looks cut off.** Widen the window a little, or it may just be scrolled — the per-second value is the rightmost column.
+**An ability name ends with "…".** The name is longer than the name column — widen the window to see it in full. The numeric columns always stay fully visible, whatever the window size.
 
 **The addon doesn't load.** Check the folder is exactly `Interface\AddOns\SchoolPop\` and contains `SchoolPop.toc`, `SchoolPop.lua`, `SchoolPop_ProcDB.lua`, `SchoolPop_DropDB.lua`, `Bindings.xml` and a `Fonts` folder. At the character screen, click AddOns and make sure SchoolPop is ticked; if it says "out of date", tick **Load out of date AddOns**.
 
